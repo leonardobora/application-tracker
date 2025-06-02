@@ -1,3 +1,5 @@
+[Leia em Português do Brasil (Read in Brazilian Portuguese)](README_pt-BR.md)
+
 # AcademicHub
 
 ## Overview
@@ -9,8 +11,10 @@ AcademicHub is a system designed to help students navigate and apply for academi
 - [Features](#features)
 - [Project Structure](#project-structure)
 - [Prerequisites](#prerequisites)
-- [Development Setup (Linux/macOS)](#development-setup-linuxmacos)
-- [Development Setup (Windows)](#development-setup-windows)
+- [Development Setup](#development-setup)
+  - [Linux/macOS](#development-setup-linuxmacos)
+  - [Windows](#development-setup-windows)
+  - [GitHub Codespaces](#github-codespaces)
 - [API Endpoints Overview](#api-endpoints-overview)
 - [Testing](#testing)
 - [CI/CD](#cicd)
@@ -73,7 +77,9 @@ Before you begin, ensure you have the following installed:
 *   **Docker and Docker Compose:** (or Docker Desktop) For containerized development and deployment.
 *   **An IDE:** A code editor like VSCode with Python support is highly recommended.
 
-## Development Setup (Linux/macOS)
+## Development Setup
+
+### Development Setup (Linux/macOS)
 
 1.  **Clone the repository:**
     ```bash
@@ -109,6 +115,7 @@ Before you begin, ensure you have the following installed:
     docker-compose up --build
     ```
     The API will be available at `http://localhost:8000`. Docker Compose handles live reloading of the `src` directory.
+    *Note:* If you see a warning about `COMPOSE_BAKE`, you can optionally set the environment variable `COMPOSE_BAKE=true` for potentially faster builds using Docker's experimental Bake feature.
 
 8.  **Running Tests:**
     Ensure your virtual environment is activated or Docker environment is up.
@@ -116,7 +123,7 @@ Before you begin, ensure you have the following installed:
     pytest
     ```
 
-## Development Setup (Windows)
+### Development Setup (Windows)
 
 1.  **Clone the repository:**
     ```bash
@@ -150,11 +157,20 @@ Before you begin, ensure you have the following installed:
     docker-compose up --build
     ```
     The API will be available at `http://localhost:8000`.
+    *Note:* If you see a warning about `COMPOSE_BAKE`, you can optionally set the environment variable `COMPOSE_BAKE=true` for potentially faster builds using Docker's experimental Bake feature.
 
 8.  **Running Tests:**
     ```bash
     pytest
     ```
+
+### GitHub Codespaces
+
+*   This project is configured to work with GitHub Codespaces.
+*   When you open this repository in a Codespace, the development environment should be largely pre-configured.
+*   Follow the standard "Development Setup (Linux/macOS)" instructions for running the application and tests within the Codespaces terminal.
+*   The necessary Docker and Python versions are typically available in default Codespaces environments. If you encounter issues, ensure your Codespace configuration provides them.
+*   Port forwarding for the application (port 8000) should be automatically handled by Codespaces when you run `docker-compose up` or `uvicorn`.
 
 ## API Endpoints Overview
 
@@ -216,6 +232,8 @@ The application is containerized using Docker for consistent development and dep
     docker-compose up --build
     ```
     This command builds the image (if not already built or if Dockerfile changed) and starts the service. The API will be available at `http://localhost:8000`.
+    *Note:* If you see a warning about `COMPOSE_BAKE`, you can optionally set the environment variable `COMPOSE_BAKE=true` for potentially faster builds using Docker's experimental Bake feature.
+
 
 ## Contributing
 
