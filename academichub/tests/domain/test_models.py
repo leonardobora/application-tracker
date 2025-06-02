@@ -29,7 +29,7 @@ class TestOpportunityLifecycle:
     def test_create_opportunity_lifecycle_default_stages(self):
         lifecycle = OpportunityLifecycle()
         assert len(lifecycle.stages) == 4
-
+        
         expected_stages = [
             {"name": "Descoberta", "owner": "AI Agent"},
             {"name": "Application", "owner": "Student"},
@@ -48,7 +48,7 @@ class TestOpportunityLifecycle:
             {"name": "Custom 2", "owner": "Owner 2"},
         ]
         custom_stages = [LifecycleStage(**data) for data in custom_stages_data]
-
+        
         lifecycle = OpportunityLifecycle(stages=custom_stages)
         assert len(lifecycle.stages) == 2
         assert lifecycle.stages[0].name == "Custom 1"

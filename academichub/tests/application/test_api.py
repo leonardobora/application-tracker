@@ -53,7 +53,7 @@ async def test_create_lifecycle_stage_success():
     new_stage_data = {"name": "Entrevista", "owner": "Hiring Manager"}
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as ac:
         response = await ac.post("/opportunities/lifecycle/stages/", json=new_stage_data)
-
+    
     assert response.status_code == 201
     created_stage = response.json()
     assert created_stage["name"] == new_stage_data["name"]
@@ -85,10 +85,10 @@ async def test_create_lifecycle_stage_invalid_payload():
 async def test_update_lifecycle_stage_success_change_owner():
     stage_to_update_name = "Application"
     update_data = {"name": "Application", "owner": "Recruiter"} # Changing owner
-
+    
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as ac:
         response = await ac.put(f"/opportunities/lifecycle/stages/{stage_to_update_name}", json=update_data)
-
+    
     assert response.status_code == 200
     updated_stage = response.json()
     assert updated_stage["name"] == update_data["name"]
@@ -105,10 +105,10 @@ async def test_update_lifecycle_stage_success_change_owner():
 async def test_update_lifecycle_stage_success_rename():
     stage_to_update_name = "Avaliação"
     update_data = {"name": "Technical Assessment", "owner": "University"} # Renaming
-
+    
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as ac:
         response = await ac.put(f"/opportunities/lifecycle/stages/{stage_to_update_name}", json=update_data)
-
+        
     assert response.status_code == 200
     updated_stage = response.json()
     assert updated_stage["name"] == update_data["name"]
@@ -125,11 +125,11 @@ async def test_update_lifecycle_stage_success_rename():
 async def test_update_lifecycle_stage_rename_conflict():
     stage_to_update_name = "Avaliação"
     # Try to rename "Avaliação" to "Descoberta", which already exists
-    update_data = {"name": "Descoberta", "owner": "University"}
-
+    update_data = {"name": "Descoberta", "owner": "University"} 
+    
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as ac:
         response = await ac.put(f"/opportunities/lifecycle/stages/{stage_to_update_name}", json=update_data)
-
+    
     assert response.status_code == 409
     assert "already exists" in response.json()["detail"]
 
@@ -137,7 +137,7 @@ async def test_update_lifecycle_stage_rename_conflict():
 async def test_update_lifecycle_stage_not_found():
     non_existent_name = "NonExistentStage"
     update_data = {"name": "NonExistentStage", "owner": "Nobody"}
-
+    
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as ac:
         response = await ac.put(f"/opportunities/lifecycle/stages/{non_existent_name}", json=update_data)
     assert response.status_code == 404
@@ -146,7 +146,7 @@ async def test_update_lifecycle_stage_not_found():
 async def test_update_lifecycle_stage_invalid_payload():
     stage_to_update_name = "Application"
     invalid_payload = {"owner": "Only Owner"} # Missing name
-
+    
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as ac:
         response = await ac.put(f"/opportunities/lifecycle/stages/{stage_to_update_name}", json=invalid_payload)
     assert response.status_code == 422
@@ -154,7 +154,7 @@ async def test_update_lifecycle_stage_invalid_payload():
 @pytest.mark.asyncio
 async def test_delete_lifecycle_stage_success():
     stage_to_delete_name = "Feedback"
-
+    
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as ac:
         response = await ac.delete(f"/opportunities/lifecycle/stages/{stage_to_delete_name}")
     assert response.status_code == 204
@@ -177,7 +177,7 @@ async def test_delete_lifecycle_stage_not_found():
 @pytest.fixture
 def fresh_db_stages():
     original_stages = [LifecycleStage(**data) for data in DEFAULT_STAGES_DATA]
-
+    
     # Monkeypatch api_db_stages for the duration of a test
     # This is a bit more involved if api_db_stages is imported directly
     # For simplicity, the global fixture `reset_db_stages` is used for all tests.
@@ -205,10 +205,10 @@ async def test_get_opportunity_lifecycle_model_validation():
 async def test_update_lifecycle_stage_success_no_rename():
     stage_to_update_name = "Application"
     update_data = {"name": "Application", "owner": "New Owner For Application"}
-
+    
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as ac:
         response = await ac.put(f"/opportunities/lifecycle/stages/{stage_to_update_name}", json=update_data)
-
+    
     assert response.status_code == 200
     updated_stage = response.json()
     assert updated_stage["name"] == update_data["name"]
@@ -225,10 +225,10 @@ async def test_update_lifecycle_stage_success_no_rename():
 async def test_update_lifecycle_stage_rename_to_self_allowed():
     stage_to_update_name = "Application"
     update_data = {"name": "Application", "owner": "Owner Updated Again"} # name is same as path param
-
+    
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as ac:
         response = await ac.put(f"/opportunities/lifecycle/stages/{stage_to_update_name}", json=update_data)
-
+        
     assert response.status_code == 200
     updated_stage = response.json()
     assert updated_stage["name"] == stage_to_update_name

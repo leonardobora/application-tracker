@@ -83,7 +83,7 @@ Before you begin, ensure you have the following installed:
 
 1.  **Clone the repository:**
     ```bash
-    git clone <repository_url>
+    git clone <repository_url> 
     # Replace <repository_url> with the actual URL of the repository
     ```
 2.  **Navigate to the project directory:**
