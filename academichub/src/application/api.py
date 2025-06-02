@@ -54,7 +54,7 @@ async def update_lifecycle_stage(stage_name: str, updated_stage_data: LifecycleS
         if s.name == stage_name:
             stage_index = i
             break
-
+    
     if stage_index == -1:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -69,7 +69,7 @@ async def update_lifecycle_stage(stage_name: str, updated_stage_data: LifecycleS
                     status_code=status.HTTP_409_CONFLICT,
                     detail=f"Lifecycle stage with name '{updated_stage_data.name}' already exists. Cannot rename."
                 )
-
+    
     db_stages[stage_index] = updated_stage_data
     return db_stages[stage_index]
 
@@ -83,12 +83,12 @@ async def delete_lifecycle_stage(stage_name: str):
         if s.name == stage_name:
             stage_index = i
             break
-
+            
     if stage_index == -1:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Lifecycle stage with name '{stage_name}' not found."
         )
-
+        
     db_stages.pop(stage_index)
     return # For 204 No Content, FastAPI expects no body

@@ -10,7 +10,7 @@ services:
       # This allows for live reloading of code changes.
       # Note: /app is the WORKDIR specified in the Dockerfile.
       - ./src:/app/src
-    command: uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload
+    command: python -m uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload
     # Environment variables can be set here if needed, e.g.:
     # environment:
     #   - MY_VARIABLE=my_value
